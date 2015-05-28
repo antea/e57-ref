@@ -179,6 +179,23 @@ add_library( time_conversion SHARED
 )
 
 #
+# The Simple Interface
+#
+
+add_library( E57SimpleImpl SHARED
+    src/refimpl/E57Simple.cpp
+    src/refimpl/E57SimpleImpl.cpp
+    src/refimpl/E57SimpleImpl.h
+)
+set_target_properties( E57SimpleImpl
+    PROPERTIES DEBUG_POSTFIX "-d"
+)
+target_link_libraries( E57SimpleImpl
+    E57RefImpl
+    time_conversion
+)
+
+#
 # Example programs
 #
 
