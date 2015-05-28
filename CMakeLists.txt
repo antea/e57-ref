@@ -28,8 +28,8 @@
 cmake_minimum_required(VERSION 2.8.2)
 
 # Override flags to enable prepare for linking to static runtime
-set(CMAKE_USER_MAKE_RULES_OVERRIDE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/c_flag_overrides.cmake)
-set(CMAKE_USER_MAKE_RULES_OVERRIDE_CXX ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cxx_flag_overrides.cmake)
+#set(CMAKE_USER_MAKE_RULES_OVERRIDE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/c_flag_overrides.cmake)
+#set(CMAKE_USER_MAKE_RULES_OVERRIDE_CXX ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cxx_flag_overrides.cmake)
 
 # Set a private module find path
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
@@ -61,8 +61,8 @@ find_package(Threads REQUIRED)
 
 # Find the Boost and Xerces libraries
 
-set(Boost_USE_STATIC_LIBS   ON)
-set(Boost_USE_STATIC_RUNTIME ON)
+#set(Boost_USE_STATIC_LIBS   ON)
+#set(Boost_USE_STATIC_RUNTIME ON)
 set(Boost_USE_MULTITHREADED ON)
 find_package(Boost
     COMPONENTS
@@ -85,7 +85,7 @@ if (NOT CURL_FOUND)
     message(FATAL_ERROR "Unable to find CURL library.")
 endif (NOT CURL_FOUND)
 
-set(Xerces_USE_STATIC_LIBS On)
+#set(Xerces_USE_STATIC_LIBS On)
 find_package(Xerces QUIET)
 if (NOT Xerces_FOUND)
     set(XERCES_ROOT CACHE PATH "Location of the xerces library")
@@ -108,7 +108,8 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 endif()
 
 add_definitions(${Boost_LIB_DIAGNOSTIC_DEFINITIONS})
-add_definitions(-DBOOST_ALL_NO_LIB -DXERCES_STATIC_LIBRARY)
+#add_definitions(-DBOOST_ALL_NO_LIB -DXERCES_STATIC_LIBRARY)
+add_definitions(-DBOOST_ALL_NO_LIB)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/include/config.h.in"
@@ -133,7 +134,7 @@ link_directories(
 # The reference implementation
 #
 
-add_library( E57RefImpl STATIC
+add_library( E57RefImpl SHARED
     src/refimpl/E57Foundation.cpp
     src/refimpl/E57FoundationImpl.cpp
     src/refimpl/E57FoundationImpl.h
@@ -142,21 +143,34 @@ add_library( E57RefImpl STATIC
 set_target_properties( E57RefImpl
     PROPERTIES DEBUG_POSTFIX "-d"
 )
-
+target_link_libraries( E57RefImpl
+    ${XML_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+)
 #
 # Files for LAS format support
 #
 
-add_library( LASReader STATIC
+add_library( LASReader SHARED
     src/LASReader/LASReader.cpp
     include/LASReader.h
+)
+target_link_libraries( LASReader
+    ${XML_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 
 #
 # Time conversion utilities
 #
 
-add_library( time_conversion STATIC
+add_library( time_conversion SHARED
     src/time_conversion/time_conversion.c
     include/time_conversion/time_conversion.h
     include/time_conversion/basictypes.h
@@ -268,6 +282,7 @@ install(
         las2e57
     RUNTIME DESTINATION bin
     ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )
 install(
     FILES
