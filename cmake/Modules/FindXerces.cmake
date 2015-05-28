@@ -38,6 +38,19 @@ find_path(Xerces_INCLUDE_DIR
     /usr/include
 )
 
+IF (APPLE)
+   FIND_LIBRARY(COREFOUNDATION_LIBRARY
+        NAMES CoreFoundation
+        PATHS ${CMAKE_OSX_SYSROOT}/System/Library
+            PATH_SUFFIXES Frameworks
+            NO_DEFAULT_PATH)
+   FIND_LIBRARY(CORESERVICES_LIBRARY
+        NAMES CoreServices
+        PATHS ${CMAKE_OSX_SYSROOT}/System/Library
+        PATH_SUFFIXES Frameworks
+        NO_DEFAULT_PATH)
+ENDIF (APPLE)
+
 #if (WIN32)
 if (Xerces_USE_STATIC_LIBS)
     find_library(Xerces_LIBRARY_DEBUG

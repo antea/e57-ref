@@ -69,8 +69,8 @@
 #if defined(_MSC_VER)
 #   include <unordered_map>
 #else
-#   include <tr1/unordered_map>
-using std::tr1::unordered_map;
+#   include <unordered_map>
+using std::unordered_map;
 #endif
 #include <cstring>
 using std::strlen;
@@ -694,7 +694,7 @@ public:
     void        dump(int indent = 0, std::ostream& os = std::cout);
 //================
 private:
-    typedef std::tr1::unordered_map<int64_t, LineGroup> GroupsMap;
+    typedef std::unordered_map<int64_t, LineGroup> GroupsMap;
 
     bool        isDefined_;
     bool        isByRow_;

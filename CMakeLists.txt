@@ -80,6 +80,11 @@ Please set the BOOST_ROOT to point to the boost distribution files."
 )
 endif(NOT Boost_FOUND)
 
+find_package(curl QUIET)
+if (NOT CURL_FOUND)
+    message(FATAL_ERROR "Unable to find CURL library.")
+endif (NOT CURL_FOUND)
+
 set(Xerces_USE_STATIC_LIBS On)
 find_package(Xerces QUIET)
 if (NOT Xerces_FOUND)
@@ -170,6 +175,9 @@ target_link_libraries( DemoWrite01
     E57RefImpl
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 add_executable( DemoRead01
     src/examples/DemoRead01.cpp
@@ -178,6 +186,9 @@ target_link_libraries( DemoRead01
     E57RefImpl
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 
 #
@@ -193,6 +204,9 @@ target_link_libraries( las2e57
     time_conversion
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 add_executable( e57fields
     src/tools/e57fields.cpp
@@ -201,6 +215,9 @@ target_link_libraries( e57fields
     E57RefImpl
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 add_executable( e57xmldump
     src/tools/e57xmldump.cpp
@@ -209,6 +226,9 @@ target_link_libraries( e57xmldump
     E57RefImpl
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 add_executable( e57validate
     src/tools/e57validate.cpp
@@ -217,6 +237,9 @@ target_link_libraries( e57validate
     E57RefImpl
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 add_executable( e57unpack
     src/tools/e57unpack.cpp
@@ -226,6 +249,9 @@ target_link_libraries( e57unpack
     ${XML_LIBRARIES}
     ${Boost_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CURL_LIBRARIES}
+    "${CORESERVICES_LIBRARY}/CoreServices"
+    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
 )
 
 #

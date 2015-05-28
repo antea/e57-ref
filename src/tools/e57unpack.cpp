@@ -44,9 +44,9 @@ using std::runtime_error;
 #if defined(_MSC_VER)
 #   include <memory>
 #else
-#   include <tr1/memory>
+#   include <memory>
 #endif
-using std::tr1::shared_ptr;
+using std::shared_ptr;
 
 #include <string>
 using std::string;
