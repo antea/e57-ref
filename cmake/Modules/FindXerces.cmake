@@ -54,12 +54,12 @@ ENDIF (APPLE)
 #if (WIN32)
 if (Xerces_USE_STATIC_LIBS)
     find_library(Xerces_LIBRARY_DEBUG
-        NAMES xerces-c_static_3D.lib libxerces-c.a
+        NAMES xerces-c_static_3D.lib libxerces-c-3.2.a
         PATHS ${XERCES_ROOT}/lib /usr/lib
     )
 
     find_library(Xerces_LIBRARY_RELEASE
-        NAMES xerces-c_static_3.lib libxerces-c.a
+        NAMES xerces-c_static_3.lib libxerces-c-3.2.a
         PATHS ${XERCES_ROOT}/lib usr/lib
     )
 else(Xerces_USE_STATIC_LIBS)
