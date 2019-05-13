@@ -39,16 +39,8 @@ find_path(Xerces_INCLUDE_DIR
 )
 
 IF (APPLE)
-   FIND_LIBRARY(COREFOUNDATION_LIBRARY
-        NAMES CoreFoundation
-        PATHS ${CMAKE_OSX_SYSROOT}/System/Library
-            PATH_SUFFIXES Frameworks
-            NO_DEFAULT_PATH)
-   FIND_LIBRARY(CORESERVICES_LIBRARY
-        NAMES CoreServices
-        PATHS ${CMAKE_OSX_SYSROOT}/System/Library
-        PATH_SUFFIXES Frameworks
-        NO_DEFAULT_PATH)
+   FIND_LIBRARY(COREFOUNDATION_LIBRARY CoreFoundation)
+   FIND_LIBRARY(CORESERVICES_LIBRARY CoreServices)
 ENDIF (APPLE)
 
 #if (WIN32)

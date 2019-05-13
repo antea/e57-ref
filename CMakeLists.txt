@@ -97,6 +97,7 @@ endif (NOT Xerces_FOUND)
 
 set(XML_LIBRARIES ${Xerces_LIBRARY})
 set(XML_INCLUDE_DIRS ${Xerces_INCLUDE_DIR})
+#target_link_libraries(E57RefImpl ${COREFOUNDATION_LIBRARY} ${CORESERVICES_LIBRARY})
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     add_definitions(-DLINUX)
@@ -147,8 +148,8 @@ target_link_libraries( E57RefImpl
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 #
 # Files for LAS format support
@@ -162,8 +163,8 @@ target_link_libraries( LASReader
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 
 #
@@ -207,8 +208,8 @@ target_link_libraries( DemoWrite01
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 add_executable( DemoRead01
     src/examples/DemoRead01.cpp
@@ -218,8 +219,8 @@ target_link_libraries( DemoRead01
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 
 #
@@ -236,8 +237,8 @@ target_link_libraries( las2e57
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 add_executable( e57fields
     src/tools/e57fields.cpp
@@ -247,8 +248,8 @@ target_link_libraries( e57fields
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 add_executable( e57xmldump
     src/tools/e57xmldump.cpp
@@ -258,8 +259,8 @@ target_link_libraries( e57xmldump
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 add_executable( e57validate
     src/tools/e57validate.cpp
@@ -269,8 +270,8 @@ target_link_libraries( e57validate
     ${XML_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 add_executable( e57unpack
     src/tools/e57unpack.cpp
@@ -281,8 +282,8 @@ target_link_libraries( e57unpack
     ${Boost_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CURL_LIBRARIES}
-    "${CORESERVICES_LIBRARY}/CoreServices"
-    "${COREFOUNDATION_LIBRARY}/CoreFoundation"
+    "${CORESERVICES_LIBRARY}"
+    "${COREFOUNDATION_LIBRARY}"
 )
 
 #
@@ -292,11 +293,13 @@ target_link_libraries( e57unpack
 install(
     TARGETS
         E57RefImpl
+        E57SimpleImpl
         e57fields
         e57xmldump
         e57unpack
         e57validate
         las2e57
+        time_conversion
     RUNTIME DESTINATION bin
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
